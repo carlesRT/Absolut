@@ -1,0 +1,26 @@
+
+
+// Validation based on data from The Density of Aqueous Solutions of Lithium Bromide at High Temperatures and Concentrations
+
+
+
+X = {0.3,0.4,0.5,0.6,0.65};
+Tmin = {278,283,294,311,323};
+Tmax = {442,453,471,495,509};
+
+outputs = {"Tdata", "T[1]","rho[1]", "T[2]","rho[2]", "T[3]","rho[3]", "T[4]","rho[4]", "T[5]","rho[5]"};
+
+legende = {"Tdata", "T30","rho30", "T40","rho40", "T50","rho50", "T60","rho60", "T65","rho65"} 
+
+sizelegende = (size(legende))[1];
+
+results = fill(1,sizelegende);
+results = array(results);
+
+translateModel("Absolut.Media.LiBrH2O.Validation.Density");
+simulateModel(startTime = 0, stopTime = 1500, outputInterval = 60, method = "DASSL", resultFile = "Density", tolerance = 1e-06);
+points = readTrajectorySize("Density.mat");
+res = readTrajectory("Density.mat",outputs, points);
+
+
+DataFiles.writeCSVmatrix("DensityValidation.csv",legende,transpose(res));

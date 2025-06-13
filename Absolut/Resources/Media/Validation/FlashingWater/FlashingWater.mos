@@ -1,0 +1,47 @@
+
+
+// The following data is already included in the model. Based on example 4.7: Throttling Process with Pure Fluid.
+// Example can be found in book "Absorption chillers and heat pumps".
+
+T_start = {45.817 + 273.15,45 + 273.15, 35 + 273.15, 25 + 273.15, 15 + 273.15, 5 + 273.15};
+T_end = {6.97 + 273.15, 6.97 + 273.15, 6.97 + 273.15, 6.97 + 273.15, 6.97 + 273.15, 5.002 + 273.15};
+Quality = {0.065, 0.064, 0.047, 0.03, 0.014, 0};
+Enthalpy = {191.8, 188.4, 146.6, 104.8, 62.9, 21};
+
+numberoftests = (size(T_start))[1];
+
+outputs = {"flashingWater.T_out", "flashingWater.h_out", "flashingWater.Q"};
+
+legende = {"Tin","Tout (reference)"," Tout (model)", "Tout (diff)", 
+"Enthalphy (reference)", "Enthalphy (model)", "Enthalphy (diff)", 
+"Quality (reference)", "Quality (model)", "Quality (diff)"}
+
+sizelegende = (size(legende))[1];
+
+results = fill(1,sizelegende);
+results = array(results);
+
+translateModel("Absolut.FluidBased.Static.Components.Validation.FlashingWater");
+
+simulateModel(startTime = 0, stopTime = 360, outputInterval = 10, method = "DASSL", resultFile = "FlashingWater", tolerance = 1e-06);
+points = readTrajectorySize("FlashingWater.mat");
+res = readTrajectory("FlashingWater.mat",outputs, points);
+
+for i in 1:numberoftests loop
+	current_results = [
+	T_start[i],
+	T_end[i],
+	res[1,6*i],
+	T_end[i] - res[1,6*i],
+	Enthalpy[i]*1000,
+	res[2,6*i],
+	Enthalpy[i]*1000 - res[2,6*i],	
+	Quality[i],
+	res[3,6*i],
+	Quality[i] - res[3,6*i]
+	];
+	results = [results;current_results];
+end for;
+
+
+DataFiles.writeCSVmatrix("FlashingWaterValidation.csv",legende,results);

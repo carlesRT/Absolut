@@ -1,0 +1,19 @@
+
+
+modelname = "Enthalpy";
+matfilename = modelname;
+
+Temperatures = {20,30,40,50,60,70,80,90,100,110,120,130,140,150,160,170,180};
+TemperaturesK = Temperatures;
+n = (size(Temperatures))[1];
+
+translateModel("Absolut.Media.LiBrH2O.Validation." + modelname);
+for i in 1:n loop
+	TemperaturesK[i] = Temperatures[i] + 273.15;
+end for;
+
+T_eval = TemperaturesK;
+simulateModel(startTime = 0, stopTime = 30, outputInterval = 0.1, method = "Radau", resultFile = matfilename,tolerance=1e-006);
+
+
+plot({"h_SSC[1]","h_SSC[2]","h_SSC[3]","h_SSC[4]","h_SSC[5]","h_SSC[6]","h_SSC[7]","h_SSC[8]","h_SSC[9]","h_SSC[10]","h_SSC[11]","h_SSC[12]","h_SSC[13]","h_SSC[14]","h_SSC[15]","h_SSC[16]","h_SSC[17]"}, colors={{28,108,200},{238,46,47},{0,140,72},{217,67,180},{0,0,0},{162,29,33},{244,125,35},{102,44,145},{28,108,200},{238,46,47},{0,140,72},{217,67,180},{0,0,0},{162,29,33},{244,125,35},{102,44,145},{28,108,200}}, patterns={LinePattern.Solid,LinePattern.Solid,LinePattern.Solid,LinePattern.Solid,LinePattern.Solid,LinePattern.Solid,LinePattern.Solid,LinePattern.Solid,LinePattern.Dash,LinePattern.Dash,LinePattern.Dash,LinePattern.Dash,LinePattern.Dash,LinePattern.Dash,LinePattern.Dash,LinePattern.Dash,LinePattern.Dot});

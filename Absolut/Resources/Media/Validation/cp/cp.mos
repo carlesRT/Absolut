@@ -1,0 +1,13 @@
+
+
+
+variables = {"T","T_degC","cp0","cp5","cp10","cp20","cp30","cp40","cp50","cp60",
+"cp65","cp70","cp748"
+};
+
+translateModel("Absolut.Media.LiBrH2O.Validation.cp");
+simulateModel(startTime = 0, stopTime = 260, outputInterval = 1, method = "DASSL", resultFile = "cp_validation", tolerance = 1e-06);
+points = readTrajectorySize("cp_validation.mat");
+res = readTrajectory("cp_validation.mat",variables, points);
+
+DataFiles.writeCSVmatrix("cp_validation.csv",variables,transpose(res));

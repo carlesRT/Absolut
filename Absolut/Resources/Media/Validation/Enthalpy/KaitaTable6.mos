@@ -1,0 +1,38 @@
+
+
+// Validation based on data from Table 6. Kaita, 2001: Thermodynamic properties of lithium  bromide-water solutions at high temperaures
+
+
+numberoftests = 18;
+
+outputs = {"T_eval", "X_LiBr", "p_eval", "h_kayta", "h_McNeely", "h_Feuerecker", "h_SSC"};
+
+legende = {"T","X_Libr","p", "h_kayta", "h_McNeely","h_Feuerecker", "h_SSC (model)"}
+
+sizelegende = (size(legende))[1];
+
+results = fill(1,sizelegende);
+results = array(results);
+
+
+translateModel("Absolut.Media.LiBrH2O.Validation.Enthalpy");
+
+simulateModel(startTime = 0, stopTime = 1140, outputInterval = 10, method = "DASSL", resultFile = "Enthalpy", tolerance = 1e-06);
+points = readTrajectorySize("Enthalpy.mat");
+res = readTrajectory("Enthalpy.mat",outputs, points);
+
+for i in 1:numberoftests loop
+	current_results = [
+    res[1,6*i],
+	res[2,6*i],
+	res[3,6*i],
+	res[4,6*i],
+	res[5,6*i],
+	res[6,6*i],
+	res[7,6*i]
+	];
+	results = [results;current_results];
+end for;
+
+
+DataFiles.writeCSVmatrix("EnthalpyKaitaValidation.csv",legende,results);

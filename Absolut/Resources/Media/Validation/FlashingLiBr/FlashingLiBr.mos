@@ -1,0 +1,52 @@
+
+
+// Based on example 4.8: Throttling Aqueous Lithium Bromide.
+// Example can be found in book "Absorption chillers and heat pumps".
+
+T_start = {91 + 273.15,90 + 273.15, 80 + 273.15, 70 + 273.15, 60 + 273.15, 50 + 273.15, 45 + 273.15};
+T_end = {49.8 + 273.15, 49.7 + 273.15, 48.8 + 273.15, 47.9 + 273.15, 47.1 + 273.15, 46.3 + 273.15, 45 + 273.15};
+Enthalpy = {216.9, 214.9, 195.4, 175.9, 156.5, 137.3, 127.7};
+XLiBr = {0.6178, 0.6174, 0.6133, 0.6094, 0.6054, 0.6016, 0.6};
+Quality = {0.0288, 0.0281, 0.0217, 0.0154, 0.009, 0.0026, 0} ;
+
+numberoftests = (size(T_start))[1];
+
+outputs = {"flashingLiBr.T_out", "flashingLiBr.h_out", "flashingLiBr.Q", "flashingLiBr.X_LiBr_out"};
+
+legende = {"Tin","Tout (reference)"," Tout (model)", "Tout (diff)", 
+"Enthalphy (reference)", "Enthalphy (model)", "Enthalphy (diff)", 
+"Quality (reference)", "Quality (model)", "Quality (diff)",
+"XLiBr out (reference)", "XLiBr out (model)", "XLiBr out (diff)"}
+
+sizelegende = (size(legende))[1];
+
+results = fill(1,sizelegende);
+results = array(results);
+
+translateModel("Absolut.FluidBased.Static.Components.Validation.FlashingLiBr");
+
+simulateModel(startTime = 0, stopTime = 420, outputInterval = 10, method = "DASSL", resultFile = "FlashingLiBr", tolerance = 1e-06);
+points = readTrajectorySize("FlashingLiBr.mat");
+res = readTrajectory("FlashingLiBr.mat",outputs, points);
+
+for i in 1:numberoftests loop
+	current_results = [
+	T_start[i],
+	T_end[i],
+	res[1,6*i],
+	T_end[i] - res[1,6*i],
+	Enthalpy[i]*1000,
+	res[2,6*i],
+	Enthalpy[i]*1000 - res[2,6*i],	
+	Quality[i],
+	res[3,6*i],
+	Quality[i] - res[3,6*i],
+	XLiBr[i],
+	res[4,6*i],
+	XLiBr[i] - res[4,6*i]
+	];
+	results = [results;current_results];
+end for;
+
+
+DataFiles.writeCSVmatrix("FlashingLiBrValidation.csv",legende,results);

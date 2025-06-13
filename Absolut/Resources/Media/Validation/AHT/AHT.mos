@@ -1,0 +1,89 @@
+
+
+// The following data is already included in the model. Based on exemplary vales shown in 6.2 Single-Effect Cycke with Heat Transfer Models. 
+// book "Absorption chillers and heat pumps".
+
+
+
+outputs = {"flashingLiBr.h_out","flashingLiBr.h_in","abs.port_l_b.h_outflow","abs.h_l_a",
+"pump.port_l_b.h_outflow","gen.port_l_b.h_outflow","gen.port_v.h_outflow","con.port_l.h_outflow",
+"pumpW.port_l_b.h_outflow","eva.port_v.h_outflow","abs.h19","abs.h20",
+"flashingLiBr.T_out","hex.sta_b2.T","abs.T","hex.sta_b1.T","pump.T_out",
+"gen.T","gen.T","con.T","pumpW.T_out","eva.T",
+"source_11.T","abs.T_14","source_13.T","gen.T_14","source_15.T","eva.T_18","source_17.T","con.T_16","abs.T_19","abs.T_6",
+"gen.X_LiBr","abs.X_LiBr","abs.X_LiBr20","gen.p","abs.p",
+"pump.W_p","pumpW.W_p","abs.Hb_flow","gen.Hb_flow","eva.Hb_flow","con.Hb_flow","hex.Q1_flow","COP.y",
+"flashingLiBr.Q","con.UA", "gen.dT_used", "abs.dT_used", "con.dT_used", "eva.dT_used"
+}
+
+legende = {"h1","h2","h3","h4","h5","h6","h7","h8","h9","h10","h19","h20",
+"T1","T2","T3","T4","T5","T6","T7","T8","T9","T10",
+"T11","T12","T13","T14","T15","T16","T17","T18","T19","T20",
+"Xgen","Xabs","Xabsstate20","pgen","pabs",
+"Wpump_s","Wpump_r","Qabsorber","Qdesorber","Qevaporator","Qcondenser","Qhx","COP",
+"Q1","UA_con", "dT gen", "dT abs", "dT con", "dT eva"
+}
+
+sizelegende = (size(legende))[1];
+
+translateModel("Absolut.FluidBased.Static.Components.Validation.AHPTypeII_UAfix_HXeps_conUAfree");
+
+simulateModel(startTime = 0, stopTime = 600, outputInterval = 10, method = "DASSL", resultFile = "AHP_UAfix_eps_conUAfree", tolerance = 1e-06);
+points = readTrajectorySize("AHP_UAfix_eps_conUAfree.mat");
+res = readTrajectory("AHP_UAfix_eps_conUAfree.mat",outputs, points);
+
+results = [
+res[1,end],
+res[2,end],
+res[3,end],
+res[4,end],
+res[5,end],
+res[6,end],
+res[7,end],
+res[8,end],
+res[9,end],
+res[10,end],
+res[11,end],
+res[12,end],
+res[13,end],
+res[14,end],
+res[15,end],
+res[16,end],
+res[17,end],
+res[18,end],
+res[19,end],
+res[20,end],
+res[21,end],
+res[22,end],
+res[23,end],
+res[24,end],
+res[25,end],
+res[26,end],
+res[27,end],
+res[28,end],
+res[29,end],
+res[30,end],
+res[31,end],
+res[32,end],
+res[33,end],
+res[34,end],
+res[35,end],
+res[36,end],
+res[37,end],
+res[38,end],
+res[39,end],
+res[40,end],
+res[41,end],
+res[42,end],
+res[43,end],
+res[44,end],
+res[45,end],
+res[46,end],
+res[47,end],
+res[48,end],
+res[49,end],
+res[50,end],
+res[51,end]
+];
+
+DataFiles.writeCSVmatrix("AHTUAfix_conideal_Validation.csv",legende,results);

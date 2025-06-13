@@ -1,0 +1,123 @@
+
+
+// The following data is already included in the model. Based on exemplary vales shown in 6.2 Double-Effect Cycke with Heat Transfer Models. 
+// book "Absorption chillers and heat pumps".
+
+
+
+outputs = {
+"abs.port_l_b.h_outflow","pump_lowp.port_l_b.h_outflow","HX1.port_b1.h_outflow","gen_low.port_l_b.h_outflow","HX1.port_b2.h_outflow",
+"flashingLiBr_lowp.h_out","gen_low.port_v.h_outflow","con_low.port_l.h_outflow","flashingWater_lowp.h_out","eva.port_v.h_outflow",
+"HX1.port_b1.h_outflow","pump_highp.port_l_b.h_outflow","HX2.port_b1.h_outflow","gen_high.port_l_b.h_outflow","HX2.port_b2.h_outflow",
+"flashingLiBr_highp.h_out","gen_high.port_v.h_outflow","con_high.port_l.h_outflow","flashingWater_highp.h_out","HX1.port_b1.h_outflow",
+"abs.T","pump_lowp.T_out","HX1.sta_b1.T","gen_low.T","HX1.sta_b2.T",
+"flashingLiBr_lowp.T_out","gen_low.T1and2","con_low.T","flashingWater_lowp.T_out","eva.T",
+"pump_lowp.T_out","pump_highp.T_out","HX2.sta_b1.T","gen_high.T","HX2.sta_b2.T",
+"flashingLiBr_highp.T_out","gen_high.T1and2","con_high.T","flashingWater_highp.T_out","pump_lowp.T_out",
+"source_21.T","gen_high.T_12","source_23.T","abs.T_14","source_25.T",
+"con_low.T_16","source_27.T","eva.T_18","gen_high.X_LiBr","abs.X_LiBr",
+"gen_high.p","gen_low.p","abs.p",
+"pump_lowp.W_dh","pump_highp.W_dh","abs.Hb_flow","gen_high.Hb_flow","eva.Hb_flow",
+"con_low.Hb_flow","con_high.Hb_flow","HX1.Q1_flow","HX2.Q1_flow","COP.y",
+"flashingLiBr_lowp.Q","flashingWater_lowp.Q","flashingLiBr_highp.Q","flashingWater_highp.Q","eva.UA",
+"abs.dT_used", "gen_high.dT_used",   "eva.dT_used", "con_low.dT_used", "gen_low.dT_used" 
+}
+
+legende = {"h1","h2","h3","h4","h5","h6","h7","h8","h9","h10",
+"h11","h12","h13","h14","h15","h16","h17","h18","h19","h20",
+"T1","T2","T3","T4","T5","T6","T7","T8","T9","T10",
+"T11","T12","T13","T14","T15","T16","T17","T18",
+"T19","T20","T21","T22","T23","T24","T25","T26",
+"T27","T28",
+"Xgen","Xabs","pgen_high","pgen_low","pabs",
+"Wpump1","Wpump2","Qabsorber","Qdesorber","Qevaporator","Qcondenser","Qcondensertodesorber",
+"Qhx1","Qhx2","COP",
+"Q6","Q9","Q16","Q19","UAe",
+"dT abs", "dT gen",  "dT eva", "dT con", "dTc2d1" 
+}
+
+sizelegende = (size(legende))[1];
+
+translateModel("Absolut.FluidBased.Static.Components.Validation.AHP_de_pf_pseudoAll_genlow_Tfixed");
+
+simulateModel(startTime = 0, stopTime = 600, outputInterval = 10, method = "DASSL", resultFile = "AHP_de_pf_pseudoAll_genlow_Tfixed", tolerance = 1e-06);
+points = readTrajectorySize("AHP_de_pf_pseudoAll_genlow_Tfixed.mat");
+res = readTrajectory("AHP_de_pf_pseudoAll_genlow_Tfixed.mat",outputs, points);
+
+results = [
+res[1,end],
+res[2,end],
+res[3,end],
+res[4,end],
+res[5,end],
+res[6,end],
+res[7,end],
+res[8,end],
+res[9,end],
+res[10,end],
+res[11,end],
+res[12,end],
+res[13,end],
+res[14,end],
+res[15,end],
+res[16,end],
+res[17,end],
+res[18,end],
+res[19,end],
+res[20,end],
+res[21,end],
+res[22,end],
+res[23,end],
+res[24,end],
+res[25,end],
+res[26,end],
+res[27,end],
+res[28,end],
+res[29,end],
+res[30,end],
+res[31,end],
+res[32,end],
+res[33,end],
+res[34,end],
+res[35,end],
+res[36,end],
+res[37,end],
+res[38,end],
+res[39,end],
+res[40,end],
+res[41,end],
+res[42,end],
+res[43,end],
+res[44,end],
+res[45,end],
+res[46,end],
+res[47,end],
+res[48,end],
+res[49,end],
+res[50,end],
+res[51,end],
+res[52,end],
+res[53,end],
+res[54,end],
+res[55,end],
+res[56,end],
+res[57,end],
+res[58,end],
+res[59,end],
+res[60,end],
+res[61,end],
+res[62,end],
+res[63,end],
+res[64,end],
+res[65,end],
+res[66,end],
+res[67,end],
+res[68,end],
+res[69,end],
+res[70,end],
+res[71,end],
+res[72,end],
+res[73,end]
+];
+
+DataFiles.writeCSVmatrix("AHP_de_pf_pseudoAll_genlow_TfixedValidation.csv",legende,results);
