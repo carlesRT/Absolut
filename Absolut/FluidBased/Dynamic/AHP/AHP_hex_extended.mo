@@ -417,7 +417,8 @@ model AHP_hex_extended
     dp1_nominal=0,
     dp2_nominal=0,
     configuration=Buildings.Fluid.Types.HeatExchangerConfiguration.CounterFlow,
-    UA_fix(displayUnit="W/K") = abs.UA) annotation (Placement(transformation(
+    UA_fix(displayUnit="W/K") = UA_fix_abs)
+                                        annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={180,-90})));
@@ -433,7 +434,8 @@ model AHP_hex_extended
     dp1_nominal=0,
     dp2_nominal=0,
     configuration=Buildings.Fluid.Types.HeatExchangerConfiguration.CounterFlow,
-    UA_fix(displayUnit="W/K") = gen.UA) annotation (Placement(transformation(
+    UA_fix(displayUnit="W/K") = UA_fix_gen)
+                                        annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=90,
         origin={46,142})));
@@ -561,6 +563,12 @@ model AHP_hex_extended
   Modelica.Blocks.Sources.RealExpression UAcon(y=(max(0.1, (port_con_a.m_flow/
         m_con))^n_con)*con_UA/nEle)
     annotation (Placement(transformation(extent={{-310,160},{-290,180}})));
+
+  parameter Modelica.Units.SI.ThermalConductance UA_fix_gen( displayUnit="W/K")
+     = gen_UA "Fixed UA value generator secondary hex" annotation(Dialog(group="Generator"));
+  parameter Modelica.Units.SI.ThermalConductance UA_fix_abs( displayUnit="W/K")
+     = abs_UA "Fixed UA value absorber secondary hex" annotation(Dialog(group="Absorber"));
+
 equation
 
   connect(flashingWater.port_a, con.port_l) annotation (Line(points={{-202,29},{
