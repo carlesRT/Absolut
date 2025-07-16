@@ -8,7 +8,7 @@ The library includes models for different absorption cycles at various levels of
 ## Tool compatibility
 The library has been developed using Dymola with partial testing performed in OpenModelica
 
-## Ackowledements
+## Acknowledgements
 The project AbSolut (FFG-Nr.: 879433) is supported with the funds from the Climate and Energy Fund and implemented in the framework of the RTI-initiative “Flagship region Energy”.
 The TREASURE project has received funding from the European Union under Grant Agreement No. 101136095.
 Views and opinions expressed are however those of the author(s) only and do not necessarily reflect those of the European Union or CINEA.
