@@ -29,10 +29,5 @@ equation
 
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-        coordinateSystem(preserveAspectRatio=false)),
-    experiment(
-      StopTime=50,
-      Interval=0.001,
-      Tolerance=1e-05,
-      __Dymola_Algorithm="Dassl"));
+        coordinateSystem(preserveAspectRatio=false)));
 end MTD;
