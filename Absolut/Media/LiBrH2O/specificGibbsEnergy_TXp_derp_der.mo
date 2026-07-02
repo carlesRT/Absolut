@@ -32,5 +32,5 @@ protected
 algorithm
   der_gderp:= specificGibbsEnergy_TXp_derp_derX(T,X_H2O,p)*(der_X_LiBr*100) +
    specificGibbsEnergy_TXp_derp_derT(T,X_H2O,p)*der_T + 0;
-  annotation(smoothOrder = 10, derivative = Absolut.Media.LiBrH2O.specificGibbsEnergy_TXp_derp_der_der);
+  annotation(smoothOrder = 10, derivative(order=2) = Absolut.Media.LiBrH2O.specificGibbsEnergy_TXp_derp_der_der);
 end specificGibbsEnergy_TXp_derp_der;
