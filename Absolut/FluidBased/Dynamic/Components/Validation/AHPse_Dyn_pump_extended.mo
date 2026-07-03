@@ -4,10 +4,11 @@ model AHPse_Dyn_pump_extended
 extends Modelica.Icons.Example;
 
   replaceable package Medium_sol = Absolut.Media.LiBrH2O;
-  replaceable package Medium_l = Modelica.Media.Water.WaterIF97_R1ph annotation (
+  replaceable package Medium_l = Modelica.Media.Water.WaterIF97_R1pT annotation (
      __Dymola_choicesAllMatching=true);
-  replaceable package Medium_v = Modelica.Media.Water.WaterIF97_R2ph annotation (
-     __Dymola_choicesAllMatching=true);
+  replaceable package Medium_v = Modelica.Media.Water.WaterIF97_R2pT annotation (  __Dymola_choicesAllMatching=true);
+  replaceable package Medium_ext = Modelica.Media.Water.WaterIF97_R1ph
+    annotation (__Dymola_choicesAllMatching=true);
 
 parameter Boolean allowFlowReversal=true
     "= false to simplify equations, assuming, but not enforcing, no flow reversal for medium 1";
@@ -35,8 +36,7 @@ parameter Boolean allowFlowReversal=true
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={76,70})));
-  replaceable package Medium_ext = Modelica.Media.Water.WaterIF97_R1ph
-    annotation (__Dymola_choicesAllMatching=true);
+
   Modelica.Fluid.Sources.FixedBoundary sink_con(
     redeclare package Medium = Medium_ext,
     p(displayUnit="bar") = 100000,

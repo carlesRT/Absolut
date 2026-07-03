@@ -4,9 +4,9 @@ model AHPse_Dyn_internalHEX
 extends Modelica.Icons.Example;
 
   replaceable package Medium_sol = Absolut.Media.LiBrH2O;
-  replaceable package Medium_l = Modelica.Media.Water.WaterIF97_R1ph annotation (
+  replaceable package Medium_l = Modelica.Media.Water.WaterIF97_R1pT annotation (
      __Dymola_choicesAllMatching=true);
-  replaceable package Medium_v = Modelica.Media.Water.WaterIF97_R2ph annotation (
+  replaceable package Medium_v = Modelica.Media.Water.WaterIF97_R2pT annotation (
      __Dymola_choicesAllMatching=true);
 
 parameter Boolean allowFlowReversal=true

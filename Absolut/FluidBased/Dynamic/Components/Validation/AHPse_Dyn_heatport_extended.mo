@@ -4,9 +4,9 @@ model AHPse_Dyn_heatport_extended
 extends Modelica.Icons.Example;
 
   replaceable package Medium_sol = Absolut.Media.LiBrH2O;
-  replaceable package Medium_l = Modelica.Media.Water.WaterIF97_R1ph annotation (
+  replaceable package Medium_l = Modelica.Media.Water.WaterIF97_R1pT annotation (
      __Dymola_choicesAllMatching=true);
-  replaceable package Medium_v = Modelica.Media.Water.WaterIF97_R2ph annotation (
+  replaceable package Medium_v = Modelica.Media.Water.WaterIF97_R2pT annotation (
      __Dymola_choicesAllMatching=true);
 
 parameter Boolean allowFlowReversal=true
@@ -88,6 +88,8 @@ parameter Boolean allowFlowReversal=true
         origin={-78,-50})));
 
   AHP.AHP_hex_extended ahp(
+    redeclare package Medium_l = Medium_l,
+    redeclare package Medium_v = Medium_v,
     flashing_w_m_flow_nominal=0.005,
     flashing_w_dp_nominal(displayUnit="Pa") = 7400 - 700,
     flashing_LiBr_m_flow_nominal=0.07,

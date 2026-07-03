@@ -15,6 +15,9 @@ model AHP_pump_hex_extended
      __Dymola_choicesAllMatching=true);
   replaceable package Medium_v = Modelica.Media.Water.WaterIF97_R2ph annotation (
      __Dymola_choicesAllMatching=true);
+  replaceable package MediumOil = Medium_ext constrainedby
+    Modelica.Media.Interfaces.PartialMedium annotation (choicesAllMatching=true);
+
 
   Components.EvaporatorDyn_heatport eva(
     redeclare package Medium_v = Medium_v,
@@ -606,8 +609,6 @@ model AHP_pump_hex_extended
     annotation (Placement(transformation(extent={{308,154},{288,174}})));
   parameter Boolean allowFlowReversal=false
     "= true to allow flow reversal, false restricts to design direction (port_a -> port_b)";
-  replaceable package MediumOil = Medium_ext constrainedby
-    Modelica.Media.Interfaces.PartialMedium annotation (choicesAllMatching=true);
   parameter Modelica.Units.SI.ThermalConductance UA_fix_gen( displayUnit="W/K")
      = gen_UA "Fixed UA value generator secondary hex" annotation(Dialog(group="Generator"));
   parameter Modelica.Units.SI.ThermalConductance UA_fix_abs( displayUnit="W/K")

@@ -6,9 +6,9 @@ model AHP_internal_hex
   replaceable package Medium_sol = Absolut.Media.LiBrH2O;
   replaceable package Medium_ext = Modelica.Media.Water.WaterIF97_R1ph
     annotation (__Dymola_choicesAllMatching=true);
-  replaceable package Medium_l = Modelica.Media.Water.WaterIF97_R1ph annotation (
+  replaceable package Medium_l = Modelica.Media.Water.WaterIF97_R1pT annotation (
      __Dymola_choicesAllMatching=true);
-  replaceable package Medium_v = Modelica.Media.Water.WaterIF97_R2ph annotation (
+  replaceable package Medium_v = Modelica.Media.Water.WaterIF97_R2pT annotation (
      __Dymola_choicesAllMatching=true);
 
   Modelica.Blocks.Interfaces.RealInput flashingWater_opening
