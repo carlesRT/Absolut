@@ -111,6 +111,7 @@ parameter Boolean allowFlowReversal=true
     m_abs=0.28,
     abs_p_start(displayUnit="Pa") = 676,
     abs_X_LiBr_start=0.5648,
+    abs(X_LiBr(fixed=true)),
     simpleHX_UA=3105/22.96)
     annotation (Placement(transformation(extent={{-26,8},{30,50}})));
   Modelica.Blocks.Sources.RealExpression control_level(y=ahp.gen.level)

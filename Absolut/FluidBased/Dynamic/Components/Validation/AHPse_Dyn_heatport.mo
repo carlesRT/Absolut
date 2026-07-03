@@ -109,8 +109,9 @@ parameter Boolean allowFlowReversal=true
     m_abs=0.28,
     abs_p_start(displayUnit="Pa") = 676,
     abs_X_LiBr_start=0.5648,
+    abs(X_LiBr(fixed=true)),
     simpleHX_UA=3105/22.96)
-    annotation (Placement(transformation(extent={{-26,4},{30,46}})));
+    annotation (Placement(transformation(extent={{-28,4},{28,46}})));
   Modelica.Blocks.Sources.RealExpression control_level(y=ahp.gen.level)
     annotation (Placement(transformation(extent={{186,-10},{166,10}})));
   Buildings.Controls.Continuous.LimPID conPID(
@@ -143,45 +144,45 @@ parameter Boolean allowFlowReversal=true
     annotation (Placement(transformation(extent={{-2,-34},{18,-14}})));
 equation
 
-  connect(ahp.m_flow_sol, MassFlowRate.y) annotation (Line(points={{30,21},{60,21},
-          {60,-12},{65,-12}},     color={0,0,127}));
+  connect(ahp.m_flow_sol, MassFlowRate.y) annotation (Line(points={{28,21},{60,21},{60,-12},{65,-12}},
+                                  color={0,0,127}));
   connect(source_con.ports[1], ahp.port_con_a)
-    annotation (Line(points={{-140,110},{-14,110},{-14,52},{-11,52},{-11,45}},
+    annotation (Line(points={{-140,110},{-14,110},{-14,52},{-13,52},{-13,45}},
                                                          color={0,127,255}));
-  connect(ahp.port_con_b, sink_con.ports[1]) annotation (Line(points={{-19,45},{
-          -18,45},{-18,60},{-96,60}},  color={0,127,255}));
-  connect(source_eva.ports[1], ahp.port_eva_a) annotation (Line(points={{-68,-50},
-          {-12,-50},{-12,5},{-13,5}},      color={0,127,255}));
-  connect(sink_eva.ports[1], ahp.port_eva_b) annotation (Line(points={{-60,-10},
-          {-20,-10},{-20,5},{-21,5}}, color={0,127,255}));
+  connect(ahp.port_con_b, sink_con.ports[1]) annotation (Line(points={{-21,45},{-18,45},{-18,60},{-96,60}},
+                                       color={0,127,255}));
+  connect(source_eva.ports[1], ahp.port_eva_a) annotation (Line(points={{-68,-50},{-12,-50},{-12,5},{-15,5}},
+                                           color={0,127,255}));
+  connect(sink_eva.ports[1], ahp.port_eva_b) annotation (Line(points={{-60,-10},{-20,-10},{-20,5},{-23,5}},
+                                      color={0,127,255}));
   connect(source_abs.ports[1], ahp.port_abs_a)
-    annotation (Line(points={{76,-40},{27,-40},{27,5}}, color={0,127,255}));
-  connect(ahp.port_abs_b, sink_abs.ports[1]) annotation (Line(points={{15,5},{18,
-          5},{18,-80},{74,-80}},    color={0,127,255}));
+    annotation (Line(points={{76,-40},{25,-40},{25,5}}, color={0,127,255}));
+  connect(ahp.port_abs_b, sink_abs.ports[1]) annotation (Line(points={{13,5},{18,5},{18,-80},{74,-80}},
+                                    color={0,127,255}));
   connect(ahp.port_gen_a, source_gen.ports[1])
-    annotation (Line(points={{20.8,45},{20.8,70},{66,70}}, color={0,127,255}));
+    annotation (Line(points={{18.8,45},{18.8,70},{66,70}}, color={0,127,255}));
   connect(ahp.port_gen_b, sink_gen.ports[1])
-    annotation (Line(points={{9,45},{9,104},{58,104}},   color={0,127,255}));
+    annotation (Line(points={{7,45},{7,104},{58,104}},   color={0,127,255}));
   connect(conPID.u_m, control_level.y)
     annotation (Line(points={{134,14},{134,0},{165,0}}, color={0,0,127}));
   connect(conPID.u_s, level_setpoint.y)
     annotation (Line(points={{146,26},{177,26}}, color={0,0,127}));
   connect(ahp.flashingLiBr_opening, conPID.y)
-    annotation (Line(points={{30,29},{123,29},{123,26}}, color={0,0,127}));
+    annotation (Line(points={{28,29},{123,29},{123,26}}, color={0,0,127}));
   connect(conPID_w.u_m, control_level_con.y)
     annotation (Line(points={{-110,14},{-110,0},{-139,0}}, color={0,0,127}));
   connect(conPID_w.u_s, level_setpoint_con.y)
     annotation (Line(points={{-122,26},{-155,26}}, color={0,0,127}));
   connect(conPID_w.y, ahp.flashingWater_opening)
-    annotation (Line(points={{-99,26},{-25.8,26}}, color={0,0,127}));
-  connect(temperature_eva_out.port, ahp.port_eva_b) annotation (Line(points={{-98,-20},
-          {-98,-26},{-20,-26},{-20,5},{-21,5}},          color={0,127,255}));
-  connect(temperature_con_out.port, ahp.port_con_b) annotation (Line(points={{-58,70},
-          {-58,60},{-19,60},{-19,45}},         color={0,127,255}));
-  connect(temperature_gen_out.port, ahp.port_gen_b) annotation (Line(points={{2,114},
-          {2,52},{9,52},{9,45}},        color={0,127,255}));
-  connect(temperature_abs_out.port, ahp.port_abs_b) annotation (Line(points={{8,-34},
-          {8,-40},{24,-40},{24,-2},{20,-2},{20,0},{15,0},{15,5}},      color={0,
+    annotation (Line(points={{-99,26},{-27.8,26}}, color={0,0,127}));
+  connect(temperature_eva_out.port, ahp.port_eva_b) annotation (Line(points={{-98,-20},{-98,-26},{-20,-26},{-20,5},{-23,5}},
+                                                         color={0,127,255}));
+  connect(temperature_con_out.port, ahp.port_con_b) annotation (Line(points={{-58,70},{-58,60},{-21,60},{-21,45}},
+                                               color={0,127,255}));
+  connect(temperature_gen_out.port, ahp.port_gen_b) annotation (Line(points={{2,114},{2,52},{7,52},{7,45}},
+                                        color={0,127,255}));
+  connect(temperature_abs_out.port, ahp.port_abs_b) annotation (Line(points={{8,-34},{8,-40},{24,-40},{24,-2},{20,-2},{20,0},{13,0},{13,5}},
+                                                                       color={0,
           127,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-180,
             -120},{200,140}})),                                  Diagram(

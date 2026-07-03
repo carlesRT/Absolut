@@ -97,21 +97,22 @@ parameter Boolean allowFlowReversal=true
     pipemass_con_T_start=298.15,
     pipemass_abs_T_start=298.15,
     pipemass_gen_T_start=373.15,
-    eva_UA=(2250),
+    eva_UA=2250,
     m_eva=0.4,
     eva_p_start(displayUnit="Pa") = 676,
-    con_UA=(1200),
+    con_UA=1200,
     m_con=0.28,
     con_p_start(displayUnit="Pa") = 7406,
-    gen_UA=(1000),
+    gen_UA=1000,
     m_gen=1,
     gen_X_LiBr_start=0.62,
     gen_p_start(displayUnit="Pa") = 7406,
-    abs_UA=(1800),
+    abs_UA=1800,
     m_abs=0.28,
     abs_p_start(displayUnit="Pa") = 676,
     abs_X_LiBr_start=0.5648,
-    simpleHX_UA=3105/22.96)
+    abs(X_LiBr(fixed=true)),
+      simpleHX_UA=3105/22.96, redeclare package Medium_l = Medium_l, redeclare package Medium_v = Medium_v)
     annotation (Placement(transformation(extent={{-22,2},{34,44}})));
   Modelica.Blocks.Sources.RealExpression control_level(y=ahp.gen.level)
     annotation (Placement(transformation(extent={{186,-10},{166,10}})));

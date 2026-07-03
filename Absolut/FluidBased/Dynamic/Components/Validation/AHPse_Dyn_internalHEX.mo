@@ -108,7 +108,8 @@ parameter Boolean allowFlowReversal=true
     gen_p_start(displayUnit="Pa") = 7406,
     abs_UA=(1800),
     abs_p_start(displayUnit="Pa") = 676,
-    abs_X_LiBr_start=0.5648,
+    abs_X_LiBr_start = 0.5648,
+    abs(X_LiBr(fixed = true)),
     simpleHX_UA=3105/22.96,
     redeclare
       Absolut.FluidBased.Static.Components.HEX.PlateHeatExchangerEffectivenessNTU
