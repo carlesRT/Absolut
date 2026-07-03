@@ -11,22 +11,32 @@ partial model MTD "Mean temperature difference"
 
   parameter Boolean usedT_log = true "true to primarly use LMTD instead of Chen approximation";
   parameter Real tol = 0.1 "Tolerance for dT1=dT2 on LMTD calculation";
-  parameter Boolean useNoEvent = true "true to use NoEvent operator";
+  parameter Modelica.Units.SI.TemperatureDifference dT_min = 1e-6 "Minimal temperature difference";
 
 equation
 
-  if useNoEvent then
-  dTzero = if not usedT_log then true elseif  dT1*dT1 < dT2*dT2 - tol or dT1*dT1 - tol > dT2*dT2 then false else true;
-  dT_log = if not usedT_log then 0 elseif dT1 > 0 and dT2 > 0 and not dTzero then ((dT1) - (dT2))/log(dT1/dT2) else dT_Chen;
-  dT_Chen = if dT1 >= 0 and dT2 >= 0 then ((1/2)*dT1^0.3275 + (1/2)*dT2^0.3275)^(1/0.3275) else Modelica.Constants.eps;
-  dT_used = if usedT_log then dT_log else dT_Chen;
-  else
-  dTzero = false;
-  dT_log = if not usedT_log then 0 elseif noEvent(dT1 > 0) and noEvent(dT2 > 0) then ((dT1) - (dT2))/log(dT1/dT2) else dT_Chen;
-  dT_Chen = if noEvent(dT1 >= 0) and noEvent(dT2 >= 0) then ((1/2)*dT1^0.3275 + (1/2)*dT2^0.3275)^(1/0.3275) else Modelica.Constants.eps;
-  dT_used = if usedT_log then dT_log else dT_Chen;
-  end if;
+  dTzero =
+  noEvent(abs(dT1 - dT2) <= tol*max(1, max(abs(dT1), abs(dT2))));
 
+  dT_log = if usedT_log then 
+  smooth(1,
+    if noEvent(dT1 > dT_min
+                         and dT2 > dT_min
+                         and not dTzero) then
+      (dT1 - dT2)/log(dT1/dT2)
+    else
+      dT_Chen)
+      else 0;
+      
+   dT_Chen =
+    smooth(1,
+      if noEvent(dT1 >= 0 and dT2 >= 0) then
+        ((0.5*max(dT1, dT_min)^0.3275
+        + 0.5*max(dT2, dT_min)^0.3275))^(1/0.3275)
+      else
+        dT_min);     
+
+  dT_used = if usedT_log then dT_log else dT_Chen;
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));
