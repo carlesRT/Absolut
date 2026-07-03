@@ -71,8 +71,6 @@ model AHP_pump_hex_extended
     dp1_nominal=0,
     dp2_nominal=0,
     configuration=Buildings.Fluid.Types.HeatExchangerConfiguration.CounterFlow,
-    T_a1_nominal=320.95,
-    T_a2_nominal=347.55,
     UA_fix=simpleHX_UA)                      annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
