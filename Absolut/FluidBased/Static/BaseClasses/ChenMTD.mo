@@ -1,10 +1,10 @@
 within Absolut.FluidBased.Static.BaseClasses;
 partial model ChenMTD "Mean temperature difference"
 
-  Modelica.Units.SI.TemperatureDifference dT1(start=2) "Temperature differences 1 for HX";
-  Modelica.Units.SI.TemperatureDifference dT2(start=1) "Temperature differences 2 for HX";
-  Modelica.Units.SI.TemperatureDifference dT_Chen "Chen approximation of LMTD";
-  Modelica.Units.SI.TemperatureDifference dT_used "Used mean temperature difference";
+  Modelica.Units.SI.TemperatureDifference dT1(start=2, nominal = 5) "Temperature differences 1 for HX";
+  Modelica.Units.SI.TemperatureDifference dT2(start=1, nominal = 5) "Temperature differences 2 for HX";
+  Modelica.Units.SI.TemperatureDifference dT_Chen(nominal = 5) "Chen approximation of LMTD";
+  Modelica.Units.SI.TemperatureDifference dT_used(nominal = 5) "Used mean temperature difference";
 
 equation
 

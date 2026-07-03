@@ -1,10 +1,10 @@
 within Absolut.FluidBased.Static.BaseClasses;
 partial model LMTD "Mean temperature difference"
 
-  Modelica.Units.SI.TemperatureDifference dT1(start=2) "Temperature differences 1 for HX";
-  Modelica.Units.SI.TemperatureDifference dT2(start=1) "Temperature differences 2 for HX";
-  Modelica.Units.SI.TemperatureDifference dT_used "Used mean temperature difference";
-  Modelica.Units.SI.TemperatureDifference dT_log "Logarithmic mean temperature difference (LMTD)";
+  Modelica.Units.SI.TemperatureDifference dT1(start=2, nominal = 5) "Temperature differences 1 for HX";
+  Modelica.Units.SI.TemperatureDifference dT2(start=1, nominal = 5) "Temperature differences 2 for HX";
+  Modelica.Units.SI.TemperatureDifference dT_used(nominal = 5) "Used mean temperature difference";
+  Modelica.Units.SI.TemperatureDifference dT_log(nominal = 5) "Logarithmic mean temperature difference (LMTD)";
   Boolean dTzero;
   parameter Real tol = 0.1 "Tolerance for dT1=dT2";
 

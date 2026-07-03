@@ -1,12 +1,12 @@
 within Absolut.FluidBased.Static.BaseClasses;
 partial model MTD "Mean temperature difference"
 
-  Modelica.Units.SI.TemperatureDifference dT1(start=2) "Temperature differences 1 for HX";
-  Modelica.Units.SI.TemperatureDifference dT2(start=1) "Temperature differences 2 for HX";
-  Modelica.Units.SI.TemperatureDifference dT_Chen "Chen approximation of LMTD";
-  Modelica.Units.SI.TemperatureDifference dT_used "Used mean temperature difference";
+  Modelica.Units.SI.TemperatureDifference dT1(start=2, nominal = 5) "Temperature differences 1 for HX";
+  Modelica.Units.SI.TemperatureDifference dT2(start=1, nominal = 5) "Temperature differences 2 for HX";
+  Modelica.Units.SI.TemperatureDifference dT_Chen(nominal = 5) "Chen approximation of LMTD";
+  Modelica.Units.SI.TemperatureDifference dT_used(nominal = 5) "Used mean temperature difference";
 
-  Modelica.Units.SI.TemperatureDifference dT_log "Logarithmic mean temperature difference (LMTD)";
+  Modelica.Units.SI.TemperatureDifference dT_log(nominal = 5) "Logarithmic mean temperature difference (LMTD)";
   Boolean dTzero;
 
   parameter Boolean usedT_log = true "true to primarly use LMTD instead of Chen approximation";

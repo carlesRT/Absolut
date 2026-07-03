@@ -39,7 +39,7 @@ model FlashingWater
 
 // Internal
   parameter Modelica.Units.SI.Temperature T_out_start=273.15 + 50;
-  Modelica.Blocks.Interfaces.RealOutput T_out(unit="K", start= T_out_start)
+  Modelica.Blocks.Interfaces.RealOutput T_out(unit="K", start= T_out_start, nominal = 300)
     annotation (Placement(transformation(extent={{80,-20},{100,0}})));
   Modelica.Blocks.Interfaces.RealOutput opening_out
     annotation (Placement(transformation(extent={{80,-50},{100,-30}})));
