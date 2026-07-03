@@ -31,7 +31,7 @@ parameter Boolean p_state = false "use mass as a state" annotation(Dialog(tab="A
         iconTransformation(extent={{-80,-100},{-60,-80}})));
     // Main variables
 
-  Modelica.Units.SI.AbsolutePressure p(stateSelect = if p_state then StateSelect.always else StateSelect.prefer, start = p_start)
+  Modelica.Units.SI.AbsolutePressure p(stateSelect = if p_state then StateSelect.always else StateSelect.default, start = p_start)
     "Liquid-vapor equilibrium pressure in the vessel";
   Modelica.Units.SI.Temperature T1and2(start = Medium_l.temperature_Xp(1 - X_LiBr_start,p_start));
   Modelica.Units.SI.Temperature T( start = T_start)
@@ -68,16 +68,16 @@ parameter Boolean p_state = false "use mass as a state" annotation(Dialog(tab="A
   Modelica.Units.SI.MassFlowRate mb_flow;
 
    Modelica.Units.SI.Mass[Medium_l.nXi] mXLiBr(each stateSelect = if mXLiBr_state then StateSelect.always else StateSelect.prefer, start= {V_l_start*Medium_l.density(Medium_l.setState_pTX(p_start, T_start, X_l_start))*X_LiBr_start});
-   Modelica.Units.SI.Mass mH2O( stateSelect = StateSelect.prefer);
+   Modelica.Units.SI.Mass mH2O(stateSelect = StateSelect.default);
    Modelica.Units.SI.MassFlowRate[Medium_l.nXi] mXLiBr_flow_l;
   // Modelica.Units.SI.Mass[Medium_v.nXi] mXi_v;
   // Modelica.Units.SI.MassFlowRate[Medium_v.nXi] mbXi_flow_v;
 
   Modelica.Units.SI.InternalEnergy U(stateSelect = if U_state then StateSelect.always else StateSelect.prefer, start=V_l_start*Medium_l.density(Medium_l.setState_pTX(p_start, T_start, X_l_start))*Medium_l.specificInternalEnergy(Medium_l.setState_pTX(p_start, T_start, X_l_start)) +(V-V_l_start)*Medium_v.density(Medium_v.setState_pTX(p_start, T_start, X_v_start))*Medium_v.specificInternalEnergy(Medium_v.setState_pTX(p_start, T_start, X_v_start)))
     "Internal energy";
-  Modelica.Units.SI.InternalEnergy Ul(stateSelect = StateSelect.prefer, start=V_l_start*Medium_l.density(Medium_l.setState_pTX(p_start, T_start, X_l_start))*Medium_l.specificInternalEnergy(Medium_l.setState_pTX(p_start, T_start, X_l_start)))
+  Modelica.Units.SI.InternalEnergy Ul(stateSelect = StateSelect.default, start=V_l_start*Medium_l.density(Medium_l.setState_pTX(p_start, T_start, X_l_start))*Medium_l.specificInternalEnergy(Medium_l.setState_pTX(p_start, T_start, X_l_start)))
     "Internal energy";
-   Modelica.Units.SI.InternalEnergy Uv(stateSelect = StateSelect.prefer, start=(V-V_l_start)*Medium_v.density(Medium_v.setState_pTX(p_start, T_start, X_v_start))*Medium_v.specificInternalEnergy(Medium_v.setState_pTX(p_start, T_start, X_v_start)))
+   Modelica.Units.SI.InternalEnergy Uv(stateSelect = StateSelect.default, start=(V-V_l_start)*Medium_v.density(Medium_v.setState_pTX(p_start, T_start, X_v_start))*Medium_v.specificInternalEnergy(Medium_v.setState_pTX(p_start, T_start, X_v_start)))
     "Internal energy";
 
   Modelica.Units.SI.Work Wv
@@ -98,8 +98,8 @@ parameter Boolean p_state = false "use mass as a state" annotation(Dialog(tab="A
     "Vapor medium";
   Medium_l.BaseProperties medium_l(
     p(start=p_start),
-    T(stateSelect = StateSelect.prefer,start=T_start),
-    Xi(each stateSelect = StateSelect.prefer, start=X_l_start[1:Medium_l.nXi]),
+    T(stateSelect = StateSelect.default,start=T_start),
+    Xi(each stateSelect = StateSelect.default, start=X_l_start[1:Medium_l.nXi]),
     h( start=Medium_l.specificEnthalpy(Medium_l.setState_pTX(p_start, T_start, X_l_start))))
     "Liquid medium";
 

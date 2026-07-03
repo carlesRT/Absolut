@@ -27,7 +27,7 @@ model CondenserDyn_heatport "Condenser with heat Transfer"
 
     // Main variables
 
-  Modelica.Units.SI.AbsolutePressure p(stateSelect = if p_state then StateSelect.always else StateSelect.prefer,  start=p_start)
+  Modelica.Units.SI.AbsolutePressure p(stateSelect = if p_state then StateSelect.always else StateSelect.default,  start=p_start)
     "Liquid-vapor equilibrium pressure in the vessel";
   Modelica.Units.SI.Temperature T(start=T_start)
     "Liquid-vapor equilibrium temperature in the vessel";
@@ -71,12 +71,10 @@ model CondenserDyn_heatport "Condenser with heat Transfer"
   Medium_l.BaseProperties medium_l(
     p(start=p_start),
     T(start=T_start),
-    Xi(start=X_l_start[1:Medium_l.nXi], each stateSelect = StateSelect.prefer),
+    Xi(start=X_l_start[1:Medium_l.nXi], each stateSelect = StateSelect.default),
     h(start=Medium_l.specificEnthalpy(Medium_l.setState_pTX(p_start, T_start, X_l_start))))
     "Liquid medium";
 
-// , stateSelect = StateSelect.prefer
-// , stateSelect = StateSelect.prefer
 
    // Initialization
   parameter Modelica.Units.SI.MassFraction X_v_start[Medium_v.nX] = Medium_v.X_default

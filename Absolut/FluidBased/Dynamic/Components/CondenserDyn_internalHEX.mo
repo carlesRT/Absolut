@@ -29,7 +29,7 @@ model CondenserDyn_internalHEX "Condenser with heat Transfer"
 
     // Main variables
 
-  Modelica.Units.SI.AbsolutePressure p(stateSelect = if p_state then StateSelect.always else StateSelect.prefer,  start=p_start)
+  Modelica.Units.SI.AbsolutePressure p(stateSelect = if p_state then StateSelect.always else StateSelect.default,  start=p_start)
     "Liquid-vapor equilibrium pressure in the vessel";
   Modelica.Units.SI.Temperature T(start=T_start)
     "Liquid-vapor equilibrium temperature in the vessel";
