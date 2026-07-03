@@ -548,13 +548,13 @@ model AHP_pump_hex_extended
         origin={88,44})));
   Modelica.Blocks.Sources.Constant const(k=1)
     annotation (Placement(transformation(extent={{158,12},{138,32}})));
-  parameter Modelica.Media.Interfaces.PartialMedium.MassFlowRate
+  parameter Modelica.Units.SI.MassFlowRate
     m_flow_start_pipe_con=0.03047 "Start value for mass flow rate";
-  parameter Modelica.Media.Interfaces.PartialMedium.MassFlowRate
+  parameter Modelica.Units.SI.MassFlowRate
     m_flow_start_pipe_gen=0.03047 "Start value for mass flow rate";
-  parameter Modelica.Media.Interfaces.PartialMedium.MassFlowRate
+  parameter Modelica.Units.SI.MassFlowRate
     m_flow_start_pipe_eva=0.28 "Start value for mass flow rate";
-  parameter Modelica.Media.Interfaces.PartialMedium.MassFlowRate
+  parameter Modelica.Units.SI.MassFlowRate
     m_flow_start_pipe_abs=0.172 "Start value for mass flow rate";
   Modelica.Blocks.Sources.RealExpression UAeva(y=(max(0.1, (port_eva_a.m_flow/
         m_eva))^n_eva)*eva_UA/nEle)
