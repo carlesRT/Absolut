@@ -53,11 +53,11 @@ equation
   port_l_a.m_flow + port_l_b.m_flow = 0;
   port_l_a.m_flow = m_dot_internal.y;
 
-  //T_out = Medium_l.temperature_hXp(port_l_b.h_outflow,inStream(port_l_a.Xi_outflow)*{1},port_l_b.p);
-  0 = inStream(port_l_b.h_outflow) - Absolut.Media.LiBrH2O.specificEnthalpy_SSC_TXp(T=T_out, X_H2O=inStream(port_l_a.Xi_outflow)*{1}, p=port_l_b.p);
+  T_out = Medium_l.temperature_hXp(port_l_b.h_outflow,inStream(port_l_a.Xi_outflow)*{1},port_l_b.p);
+  //0 = port_l_b.h_outflow - Absolut.Media.LiBrH2O.specificEnthalpy_SSC_TXp(T=T_out, X_H2O=inStream(port_l_a.Xi_outflow)*{1}, p=port_l_b.p);
 
-  //T = Medium_l.temperature_hXp(inStream(port_l_a.h_outflow),inStream(port_l_a.Xi_outflow)*{1},port_l_a.p);
-  0 = inStream(port_l_a.h_outflow) - Absolut.Media.LiBrH2O.specificEnthalpy_SSC_TXp(T=T, X_H2O=inStream(port_l_a.Xi_outflow)*{1}, p=port_l_a.p);
+  T = Medium_l.temperature_hXp(inStream(port_l_a.h_outflow),inStream(port_l_a.Xi_outflow)*{1},port_l_a.p);
+  // 0 = inStream(port_l_a.h_outflow) - Absolut.Media.LiBrH2O.specificEnthalpy_SSC_TXp(T=T, X_H2O=inStream(port_l_a.Xi_outflow)*{1}, p=port_l_a.p);
 
 
   //0 = inStream(port_l_b.h_outflow) - Absolut.Media.LiBrH2O.specificEnthalpy_SSC_TXp(T=T_out, X_H2O=inStream(port_l_a.Xi_outflow)*{1}, p=port_l_b.p);

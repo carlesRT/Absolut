@@ -111,8 +111,8 @@ Modelica.Media.Water.WaterIF97_ph.specificGibbsEnergy(Modelica.Media.Water.Water
 
 Q_intern = max(0,min(1,(X_LiBr_out_intern - X_LiBr_in)/X_LiBr_out_intern));
 
-// Medium_l.temperature_hXp(h_out,1-X_LiBr_out,port_l_b.p)
-h_out = Medium_l.specificEnthalpy_SSC_TXp(T_out_intern_auxiliar,1-X_LiBr_out,port_l_b.p);
+T_out_intern_auxiliar = Medium_l.temperature_hXp(h_out,1-X_LiBr_out,port_l_b.p);
+//h_out = Medium_l.specificEnthalpy_SSC_TXp(T_out_intern_auxiliar,1-X_LiBr_out,port_l_b.p);
 
 //port_v_b.m_flow = Buildings.Utilities.Math.Functions.regStep(Q_intern,-Q*port_a.m_flow,0, 0.00001);
 port_v_b.m_flow = -Q*port_a.m_flow;
